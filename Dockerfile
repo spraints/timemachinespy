@@ -3,10 +3,9 @@ RUN apt-get update && apt-get install -y \
   cmake \
   curl \
   fuse libfuse-dev \
-  libboost-system-dev libboost-filesystem-dev
-
-RUN apt-get install -y build-essential
-RUN apt-get install -y pkg-config
+  libboost-system-dev libboost-filesystem-dev \
+  build-essential pkg-config \
+  hfsprogs parted
 
 FROM base AS sparsebundlefs
 RUN mkdir sparsebundlefs && \
@@ -30,8 +29,6 @@ COPY --from=tmfs /tmfs /tmfs
 RUN cp /sparsebundlefs/sparsebundlefs /usr/bin/
 RUN cd tmfs/build && make install
 
-RUN apt-get install -y hfsprogs
-RUN apt-get install -y parted
 RUN mkdir -p /mnt/sparse
 RUN mkdir -p /mnt/hfs
 RUN mkdir -p /mnt/tmfs

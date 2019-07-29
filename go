@@ -5,6 +5,8 @@ set -ex
 # dockerfile based on info in https://superuser.com/questions/306497/can-linux-mount-a-normal-time-machine-sparse-bundle-disk-image-directory
 docker build --rm -t tmfs .
 
+sudo modprobe fuse
+
 # see https://stackoverflow.com/questions/48402218/fuse-inside-docker for more flags i may need to set.
 exec docker run -it --rm \
   -v /data/timemachine:/tm:ro \
